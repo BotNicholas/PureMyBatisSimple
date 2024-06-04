@@ -3,8 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--here we must define mapper interface, but, if such interface is missing you can specify any unique id (namespace name) like shown below -->
-<mapper namespace = "StudentNamespace">
+<!--Now i've specified mapper. MyBatis will automatically create implementation for given mapper interface-->
+<mapper namespace = "org.nicholas.mappers.StudentMapper">
 
     <insert id = "insert" parameterType = "Student">
         INSERT INTO student (NAME, BRANCH, PERCENTAGE, PHONE, EMAIL ) VALUES (#{name}, #{branch}, #{percentage}, #{phone}, #{email});
