@@ -1,0 +1,8 @@
+docker build -t my-mysql --build-arg SCRIPT=./scripts/details.sql . <-- To build image
+docker run -p 3306:3306 --name my-mysql my-mysql <-- To create container
+
+docker start my-mysql <-- to start existing container
+docker stop my-mysql <-- to stop working container
+
+docker rm my-mysql <-- remove container
+docker rmi my-mysql <-- remove image
