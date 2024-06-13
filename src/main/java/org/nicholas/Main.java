@@ -112,11 +112,22 @@ public class Main {
 
 
 //        DELETE WITHOUT MAPPER INTERFACE
+//        Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
+//        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+//        SqlSession sqlSession = sqlSessionFactory.openSession();
+//
+//        sqlSession.delete("StudentNamespace.delete", 1);
+//        sqlSession.commit();
+//        sqlSession.close();
+
+//        DELETE WITH MAPPER INTERFACE
         Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession sqlSession = sqlSessionFactory.openSession();
+        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
 
-        sqlSession.delete("StudentNamespace.delete", 1);
+        studentMapper.delete(2);
+
         sqlSession.commit();
         sqlSession.close();
     }
