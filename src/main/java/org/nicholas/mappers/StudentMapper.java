@@ -9,4 +9,6 @@ public interface StudentMapper {
 
     List<Student> getAll();
     Student getById(int id);
+
+    void update(Student student);
 }

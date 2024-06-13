@@ -71,20 +71,40 @@ public class Main {
 
 
 //        UPDATE WITHOUT MAPPER INTERFACE
+//        Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
+//        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+//        SqlSession sqlSession = sqlSessionFactory.openSession();
+//
+//        Student student = sqlSession.selectOne("StudentNamespace.getById", 1);
+//        System.out.println("Current student: " + student);
+//
+//        student.setName(student.getName() + "_COPY");
+//
+//        sqlSession.update("StudentNamespace.update", student);
+//        sqlSession.commit();
+////        sqlSession.close();
+//
+//        Student newStudent = sqlSession.selectOne("StudentNamespace.getById", 1);
+//        System.out.println("New student: " + newStudent);
+//        sqlSession.commit();
+//        sqlSession.close();
+
+//        UPDATE WITH MAPPER INTERFACE
         Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession sqlSession = sqlSessionFactory.openSession();
+        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
 
-        Student student = sqlSession.selectOne("StudentNamespace.getById", 1);
+        Student student = studentMapper.getById(1);
         System.out.println("Current student: " + student);
 
         student.setName(student.getName() + "_COPY");
 
-        sqlSession.update("StudentNamespace.update", student);
-        sqlSession.commit();
+        studentMapper.update(student);
+//        sqlSession.commit();
 //        sqlSession.close();
 
-        Student newStudent = sqlSession.selectOne("StudentNamespace.getById", 1);
+        Student newStudent = studentMapper.getById(1);
         System.out.println("New student: " + newStudent);
         sqlSession.commit();
         sqlSession.close();
