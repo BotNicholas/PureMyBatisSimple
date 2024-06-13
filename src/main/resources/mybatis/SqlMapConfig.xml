@@ -22,7 +22,7 @@
         </environment>
     </environments>
 
-<!--    <mappers>-->
-<!--        <mapper class="org.nicholas.mappers.StudentMapper"/>-->
-<!--    </mappers>-->
+    <mappers>
+        <mapper class="org.nicholas.mappers.StudentMapper"/>
+    </mappers>
 </configuration>
