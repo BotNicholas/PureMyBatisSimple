@@ -90,22 +90,33 @@ public class Main {
 //        sqlSession.close();
 
 //        UPDATE WITH MAPPER INTERFACE
-        Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
-
-        Student student = studentMapper.getById(1);
-        System.out.println("Current student: " + student);
-
-        student.setName(student.getName() + "_COPY");
-
-        studentMapper.update(student);
+//        Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
+//        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+//        SqlSession sqlSession = sqlSessionFactory.openSession();
+//        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+//
+//        Student student = studentMapper.getById(1);
+//        System.out.println("Current student: " + student);
+//
+//        student.setName(student.getName() + "_COPY");
+//
+//        studentMapper.update(student);
+////        sqlSession.commit();
+////        sqlSession.close();
+//
+//        Student newStudent = studentMapper.getById(1);
+//        System.out.println("New student: " + newStudent);
 //        sqlSession.commit();
 //        sqlSession.close();
 
-        Student newStudent = studentMapper.getById(1);
-        System.out.println("New student: " + newStudent);
+
+
+//        DELETE WITHOUT MAPPER INTERFACE
+        Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        sqlSession.delete("StudentNamespace.delete", 1);
         sqlSession.commit();
         sqlSession.close();
     }
