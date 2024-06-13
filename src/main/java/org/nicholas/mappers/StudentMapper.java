@@ -10,7 +10,7 @@ public interface StudentMapper {
      final String GET_BY_ID = "select * from student where ID = #{id}";
      final String DELETE_BY_ID = "delete from student where ID = #{id}";
      final String INSERT = "insert into student (NAME, BRANCH, PERCENTAGE, PHONE, EMAIL) values (#{name}, #{branch}, #{percentage}, #{phone}, #{email})";
-     final String UPDATE = "update student set NAME = #{name}, BRANCH = #{branch}, PERCENTAGE = #{percentage} PHONE = #{phone}, EMAIL = #{email} where ID = #{id}";
+     final String UPDATE = "update student set NAME = #{name}, BRANCH = #{branch}, PERCENTAGE = #{percentage}, PHONE = #{phone}, EMAIL = #{email} where ID = #{id}";
 
      @Select(GET_ALL)
 //     @ResultMap() <--- is used for existing ResultMap (from XML)
