@@ -39,20 +39,33 @@ public class Main {
 //        session.commit();
 //        session.close();
 
+
+//        SELECT WITHOUT MAPPER INTERFACE
+//        Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
+//        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+//        SqlSession session = sessionFactory.openSession();
+//
+//        List<Student> students = session.selectList("StudentNamespace.getAll");
+//
+//        students.forEach(System.out::println);
+//        System.out.println();
+//
+//        Student student = session.selectOne("StudentNamespace.getById", 1);
+//
+//        System.out.println(student);
+//
+//        session.commit();
+//        session.close();
+
+//        SELECT WITH MAPPER INTERFACE
         Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession session = sessionFactory.openSession();
+        StudentMapper mapper = session.getMapper(StudentMapper.class);
 
-        List<Student> students = session.selectList("StudentNamespace.getAll");
-
-        students.forEach(System.out::println);
+        mapper.getAll().forEach(System.out::println);
         System.out.println();
 
-        Student student = session.selectOne("StudentNamespace.getById", 1);
-
-        System.out.println(student);
-
-        session.commit();
-        session.close();
+        System.out.println(mapper.getById(1));
     }
 }
