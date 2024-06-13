@@ -9,6 +9,7 @@ import org.nicholas.models.Student;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -25,14 +26,31 @@ public class Main {
 //        session.commit();
 //        session.close();
 
+
 //        With mapper interface
+//        Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
+//        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+//        SqlSession session = sessionFactory.openSession();
+//        StudentMapper mapper = session.getMapper(StudentMapper.class);
+//
+//        Student student = new Student(0, "Mohammad", "It", 80, 984803322, "Mohamad@gmail.com");
+//        mapper.insert(student);
+//
+//        session.commit();
+//        session.close();
+
         Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession session = sessionFactory.openSession();
-        StudentMapper mapper = session.getMapper(StudentMapper.class);
 
-        Student student = new Student(0, "Mohammad", "It", 80, 984803322, "Mohamad@gmail.com");
-        mapper.insert(student);
+        List<Student> students = session.selectList("StudentNamespace.getAll");
+
+        students.forEach(System.out::println);
+        System.out.println();
+
+        Student student = session.selectOne("StudentNamespace.getById", 1);
+
+        System.out.println(student);
 
         session.commit();
         session.close();
