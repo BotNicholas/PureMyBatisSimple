@@ -121,14 +121,46 @@ public class Main {
 //        sqlSession.close();
 
 //        DELETE WITH MAPPER INTERFACE
+//        Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
+//        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+//        SqlSession sqlSession = sqlSessionFactory.openSession();
+//        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+//
+//        studentMapper.delete(2);
+//
+//        sqlSession.commit();
+//        sqlSession.close();
+
         Reader reader = Resources.getResourceAsReader("mybatis/SqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        SqlSession session = sessionFactory.openSession();
+        session.getConfiguration().addMapper(StudentMapper.class);
 
-        studentMapper.delete(2);
+        StudentMapper mapper = session.getMapper(StudentMapper.class);
 
-        sqlSession.commit();
-        sqlSession.close();
+        Student student = new Student();
+
+        student.setName("zara");
+        student.setBranch("EEE");
+        student.setEmail("zara@gmail.com");
+        student.setPercentage(90);
+        student.setPhone(123412341);
+
+        mapper.insert(student);
+        session.commit();
+        session.close();
     }
 }
+
+
+
+//Multiple parameters in query
+//
+//<select id="findUsersByNameAndEmail" resultType="User">
+//    SELECT * FROM users WHERE name = #{name} AND email = #{email}
+//</select>
+//...
+//Map<String, Object> params = new HashMap<>();
+//    params.put("name", "John Doe");
+//    params.put("email", "john.doe@example.com");
+//    List<User> users = session.selectList("findUsersByNameAndEmail", params);

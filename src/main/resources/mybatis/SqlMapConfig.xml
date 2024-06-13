@@ -22,7 +22,7 @@
         </environment>
     </environments>
 
-    <mappers>
-        <mapper resource="mybatis/mappers/Student.xml"/>
-    </mappers>
+<!--    <mappers>-->
+<!--        <mapper class="org.nicholas.mappers.StudentMapper"/>-->
+<!--    </mappers>-->
 </configuration>
