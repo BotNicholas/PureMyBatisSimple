@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "StudentNamespace">
+
+    <resultMap id="studentResult" type="Student">
+        <result property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="branch" column="BRANCH"/>
+        <result property="percentage" column="PERCENTAGE"/>
+        <result property="phone" column="PHONE"/>
+        <result property="email" column="EMAIL"/>
+    </resultMap>
+
+    <select id="getByName" parameterType="Student" resultMap="studentResult" resultType="Student">
+        select * from student
+        <if test="name != null">
+            where name like #{name}
+        </if>
+    </select>
+
+    <select id="getByNameAndPhone" parameterType="Student" resultMap="studentResult" resultType="Student">
+        select * from student where ID != 0
+        <choose>
+            <when test="name != null">
+                and NAME like #{name}
+            </when>
+            <when test="phone != null">
+                and PHONE like #{phone}
+            </when>
+        </choose>
+    </select>
+
+<!--    if none of the conditions are met, the SQL will look like this -->
+<!--    SELECT * FROM Student WHERE-->
+<!--    This would fail, but MyBatis has a simple solution with one simple change, everything works fine-->
+    <select id="getByNameAndPhoneStrong" parameterType="Student" resultMap="studentResult" resultType="Student">
+        select * from student
+        <where>
+            <if test="name != null">
+                NAME like #{name}
+            </if>
+            <if test="phone != null">
+                and PHONE like #{phone}
+            </if>
+        </where>
+    </select>
+<!--  If the first one where clause won't be present, mybatis will trim and/or from the begining of the second where clause! It is smart!-->
+
+    <select id="simpleGetAll" parameterType="Student" resultMap="studentResult" resultType="Student">
+        select * from student where ID in
+
+          <foreach item="id" index="i" collection="ids" open="(" separator="," close=")">
+              #{id}
+          </foreach>
+    </select>
+<!--    Final SQL query will look like this: "SELECT * FROM users WHERE id IN (1, 2, 3)"-->
+</mapper>

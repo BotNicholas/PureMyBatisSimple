@@ -24,5 +24,6 @@
 
     <mappers>
         <mapper class="org.nicholas.mappers.StudentMapper"/>
+        <mapper resource="mybatis/mappers/StudentMapper.xml"/>
     </mappers>
 </configuration>
